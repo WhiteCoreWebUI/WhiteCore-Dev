@@ -16,7 +16,7 @@ script:
 notifications:
   irc:
     channels:
-      - "chat.freenode.net#WhiteCoreAdv"
+      - "chat.freenode.net:6667#WhiteCoreAdv"
     on_success: always
     on_failure: always
     use_notice: true

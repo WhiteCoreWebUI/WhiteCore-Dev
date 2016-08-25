@@ -8,3 +8,8 @@ build_script:
 artifacts:
 - path: WhiteCoreSim\bin
   name: WhiteCore
+  notifications:
+
+  - provider: Webhook
+    url: http://n.tkte.ch/h/4867/zR54Lpkq8qmePRJIOT7cjq2q
+    method: GET

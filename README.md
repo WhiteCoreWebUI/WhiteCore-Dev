@@ -1,6 +1,6 @@
 # WhiteCore Sim
 
-[![Join the chat at https://gitter.im/WhiteCore-Dev/Lobby](https://badges.gitter.im/WhiteCore-Dev/Lobby.svg)](https://gitter.im/WhiteCore-Dev/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 The WhiteCore Development Team has moved the original Aurora virtual world server, derived form the OpenSim project, to a new level.
 
@@ -16,7 +16,7 @@ Linux 64 Bit [![Build Status](https://travis-ci.org/WhiteCoreWebUI/WhiteCore-Dev
 
 ## WhiteCore Development
 
-[![Join the chat at https://gitter.im/WhiteCoreSim/WhiteCore-Dev](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/WhiteCoreSim/WhiteCore-Dev?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/WhiteCore-Dev/Lobby](https://badges.gitter.im/WhiteCore-Dev/Lobby.svg)](https://gitter.im/WhiteCore-Dev/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Also we have the #whitecore-support channel on FreeNode in which people that use WhiteCore tend to be, just ask your question there and someone will be able to answer it for you.
 

@@ -717,11 +717,11 @@ namespace WhiteCore.Simulation.Base
                         conf.Set(";;destination", "");
                         conf.Set(";;marketplace", "");
                         conf.Set(";;tutorial", "");
-                        conf.Set(";;message", "this is a test message");
+                        conf.Set(";;message", "\"this is a test message\"");
                         conf.Set(";;snapshotconfig", "");
                         conf.Set("SendGridInfoToViewerOnLogin", "true");
-                        conf.Set("CurrencySymbol", " \"WC$\" ");
-                        conf.Set(";;RealCurrencySymbol", "$");
+                        conf.Set("CurrencySymbol", "\"WC$\"");
+                        conf.Set(";;RealCurrencySymbol", "\"$\"");
                         conf.Set(";;MaxGroups", "50");
 
 

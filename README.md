@@ -8,7 +8,7 @@ There is a heavy emphasis on supporting all users, increased technology focus an
 
 ## Build Status
 
-Windows .Net 4.5 [![Build status](https://ci.appveyor.com/api/projects/status/tj3pr2xb4rg6ospe/branch/master?svg=true)](https://ci.appveyor.com/project/fly-man-/whitecore-dev/branch/master)
+Windows .Net 4.5 [![Build status](https://ci.appveyor.com/api/projects/status/dm39sb6e8263qd5t?svg=true)](https://ci.appveyor.com/api/projects/status/dm39sb6e8263qd5t?svg=true)
 
 Linux 64 Bit [![Build Status](https://travis-ci.org/WhiteCoreWebUI/WhiteCore-Dev.svg?branch=master)](https://travis-ci.org/WhiteCoreWebUI/WhiteCore-Dev)
 

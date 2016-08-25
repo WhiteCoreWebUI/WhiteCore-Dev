@@ -1,5 +1,7 @@
 # WhiteCore Sim
 
+[![Join the chat at https://gitter.im/WhiteCore-Dev/Lobby](https://badges.gitter.im/WhiteCore-Dev/Lobby.svg)](https://gitter.im/WhiteCore-Dev/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 The WhiteCore Development Team has moved the original Aurora virtual world server, derived form the OpenSim project, to a new level.
 
 The structure and code base has been heavily revised and is under continual development.

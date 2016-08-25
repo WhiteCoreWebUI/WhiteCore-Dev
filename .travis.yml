@@ -1,7 +1,6 @@
 language: csharp
 
 addons:
-  coverity_scan:
     project:
       name: "WhiteCoreWebUI/WhiteCore-Dev"
       description: "Build submitted via Travis CI"

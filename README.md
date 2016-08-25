@@ -35,7 +35,7 @@ More information can be found here:
 Support is available from various sources.
 
 * IRC channel #whitecore-support on freenode  
- <http://webchat.freenode.net?channels=%23whitecore-support>
+ <http://webchat.freenode.net?channels=%23WhiteCoreAdv>
 
 * Check out <http://whitecore-sim.org> for the latest developments, downloads and forum
 

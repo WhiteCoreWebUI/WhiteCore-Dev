@@ -285,6 +285,15 @@ namespace WhiteCore.Simulation.Base
                     }
                     if (isStandalone)
                     {
+                        MakeSureExists(cfgFolder + "Grid/ServerConfiguration/Modules/Economy.ini");
+                        var economy_ini = new IniConfigSource(
+                            cfgFolder + "Grid/ServerConfiguration/Modules/Economy.ini",
+                            Nini.Ini.IniFileType.AuroraStyle);
+                        IConfig conf = economy_ini.AddConfig("Currency");
+
+                    }
+                    if (isStandalone)
+                    {
                         MakeSureExists(cfgFolder + "Grid/ServerConfiguration/Modules/VoiceModules.ini");
                         var voice_ini = new IniConfigSource(
                             cfgFolder + "Grid/ServerConfiguration/Modules/VoiceModules.ini",

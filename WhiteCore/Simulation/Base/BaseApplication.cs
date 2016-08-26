@@ -321,7 +321,7 @@ namespace WhiteCore.Simulation.Base
                         string StipendsLoginRequired = "false";
                         string IBaseCurrencyConnectorOpenServerHandler = "true";
                         string IBaseCurrencyConnectorServerHandlerPort = "8009";
-                        Module = ReadLine("Module", module);
+                        Module = ReadLine("Module", Module);
 
 
 

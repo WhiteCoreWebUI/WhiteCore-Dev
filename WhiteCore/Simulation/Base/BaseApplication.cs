@@ -313,7 +313,7 @@ namespace WhiteCore.Simulation.Base
                         string echoport = "50505";
                         string attemptstun = "false";
                         string defaulttimeout = "5000";
-                        string context = "default";
+                        string context = "default"; //needed?
                         string username = "freeswitch";
                         string password = "";
                         ///Murmur Base Strings

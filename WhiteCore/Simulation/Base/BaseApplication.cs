@@ -290,6 +290,42 @@ namespace WhiteCore.Simulation.Base
                             cfgFolder + "Grid/ServerConfiguration/Modules/Economy.ini",
                             Nini.Ini.IniFileType.AuroraStyle);
                         IConfig conf = economy_ini.AddConfig("Currency");
+                        ///Strings
+                        string Module = "BaseCurrency";
+                        string SaveTransactionLogs = "true";
+                        string ClientPort = "8009";
+                        string erroruri = "http://ServersHostname:8009";
+                        string Upgrade = erroruri;
+                        string priceupload = "10";
+                        string PriceGroupCreate = "100";
+                        string PriceDirectoryFee = "30";
+                        string maxamountpurchasable = "10000";
+                        string minamountpurchasable = "0";
+                        string MaxAmountPurchasableoverTime = "100000";
+                        string MaxAmountPurchasableEveryType = "weeks";
+                        string MaxAmountPurchasableEveryAmount = "1";
+                        string CanBuyCurrencyInworld = "true";
+                        string RealCurrencyConversionFactor = "500";
+                        string AdditionPercentage = "291";
+                        string AdditionAmount = "30";
+                        string MAxAmountBeforeLogging = "-1";
+                        string GroupPayments = "false";
+                        string NewUserStipend = "0";
+                        string PayStipends = "false";
+                        string Stipend = "0";
+                        string StipendsPremiumOnly = "false";
+                        string StipendPeriod = "week";
+                        string StipendInterval = "1";
+                        string StipendPayDay = "tuesday";
+                        string StipendPayTime = "00:05";
+                        string StipendsLoginRequired = "false";
+                        string IBaseCurrencyConnectorOpenServerHandler = "true";
+                        string IBaseCurrencyConnectorServerHandlerPort = "8009";
+                        Module = ReadLine("Module", module);
+
+
+
+
                         ///Start Reading Lines
 
                     }

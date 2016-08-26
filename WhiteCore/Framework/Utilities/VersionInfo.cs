@@ -40,13 +40,14 @@ namespace WhiteCore.Framework.Utilities
             RC1,
             RC2,
             Release,
-            Post_Fixes
+            Post_Fixes,
+            Extended
         }
 
         #endregion
 
         public const string VERSION_NUMBER = "0.9.4";
-        public const Flavour VERSION_FLAVOUR = Flavour.Development;
+        public const Flavour VERSION_FLAVOUR = Flavour.Extended;
         public const string VERSION_NAME = "WhiteCore";
 
         public static string Version

@@ -290,6 +290,7 @@ namespace WhiteCore.Simulation.Base
                             cfgFolder + "Grid/ServerConfiguration/Modules/Economy.ini",
                             Nini.Ini.IniFileType.AuroraStyle);
                         IConfig conf = economy_ini.AddConfig("Currency");
+                        ///Start Reading Lines
 
                     }
                     if (isStandalone)

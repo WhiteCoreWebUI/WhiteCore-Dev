@@ -148,6 +148,7 @@ namespace WhiteCore.Services
                     }
                     //The reply
                     SetDisplayNameReply(newDisplayName, oldDisplayName, m_service.ClientCaps.AccountInfo);
+                   
                 }
             }
             catch

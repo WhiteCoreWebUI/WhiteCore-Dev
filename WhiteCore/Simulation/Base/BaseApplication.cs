@@ -321,8 +321,18 @@ namespace WhiteCore.Simulation.Base
                         string StipendsLoginRequired = "false";
                         string IBaseCurrencyConnectorOpenServerHandler = "true";
                         string IBaseCurrencyConnectorServerHandlerPort = "8009";
-                        Module = ReadLine("Module", Module);
-
+                        string configure_eco = "yes";
+                        configure_eco = ReadLine("Configure Economy", configure_eco);
+                        if (configure_eco == "yes")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.Write("Configuring Economy Settings\n");
+                            Console.ResetColor();
+                            Module = ReadLine("Module", Module);
+                            SaveTransactionLogs = ReadLine("SaveTransactionLogs", SaveTransactionLogs);
+                            ClientPort = ReadLine("ClientPort", ClientPort);
+                            erroruri = ReadLine("ErrorURI", erroruri);
+                        }
 
 
 

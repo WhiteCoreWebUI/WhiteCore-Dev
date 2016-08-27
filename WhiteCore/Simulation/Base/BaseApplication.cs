@@ -332,6 +332,16 @@ namespace WhiteCore.Simulation.Base
                             SaveTransactionLogs = ReadLine("SaveTransactionLogs", SaveTransactionLogs);
                             ClientPort = ReadLine("ClientPort", ClientPort);
                             erroruri = ReadLine("ErrorURI", erroruri);
+                            Upgrade = ReadLine("UpgradeMembershipUri", Upgrade);
+                            priceupload = ReadLine("PriceUpload", priceupload);
+                            PriceGroupCreate = ReadLine("PriceGroupCreate", PriceGroupCreate);
+                            PriceDirectoryFee = ReadLine("PriceDirectoryFee", PriceDirectoryFee);
+                            maxamountpurchasable = ReadLine("MaxAmountPurchasable", maxamountpurchasable);
+                            minamountpurchasable = ReadLine("MinAmountPurchasable", minamountpurchasable);
+                            MaxAmountPurchasableoverTime = ReadLine("MaxAmountPurchasableOverTime", MaxAmountPurchasableoverTime);
+                            MaxAmountPurchasableEveryType = ReadLine("MaxAmountPurchasableEveryType", MaxAmountPurchasableEveryType);
+                            MaxAmountPurchasableEveryAmount = ReadLine("MaxAmountPurchasableEveryAmount", MaxAmountPurchasableEveryAmount);
+                            CanBuyCurrencyInworld = ReadLine("CanBuyCurrencyInworld", CanBuyCurrencyInworld);
                         }
 
 

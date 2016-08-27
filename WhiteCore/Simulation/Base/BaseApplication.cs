@@ -308,7 +308,7 @@ namespace WhiteCore.Simulation.Base
                         string RealCurrencyConversionFactor = "500";
                         string AdditionPercentage = "291";
                         string AdditionAmount = "30";
-                        string MAxAmountBeforeLogging = "-1";
+                        string MaxAmountBeforeLogging = "-1";
                         string GroupPayments = "false";
                         string NewUserStipend = "0";
                         string PayStipends = "false";
@@ -323,10 +323,14 @@ namespace WhiteCore.Simulation.Base
                         string IBaseCurrencyConnectorServerHandlerPort = "8009";
                         string configure_eco = "yes";
                         configure_eco = ReadLine("Configure Economy", configure_eco);
+
                         if (configure_eco == "yes")
                         {
                             Console.ForegroundColor = ConsoleColor.Blue;
                             Console.Write("Configuring Economy Settings\n");
+                            Console.ResetColor();
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("---- WARNING WARNING ----\n This is a Advanced Setup which uses the .ini names\n If you are not sure what to do here press eneter to every Question\n ---- WARNING WARNING ----");
                             Console.ResetColor();
                             Module = ReadLine("Module", Module);
                             SaveTransactionLogs = ReadLine("SaveTransactionLogs", SaveTransactionLogs);
@@ -342,11 +346,29 @@ namespace WhiteCore.Simulation.Base
                             MaxAmountPurchasableEveryType = ReadLine("MaxAmountPurchasableEveryType", MaxAmountPurchasableEveryType);
                             MaxAmountPurchasableEveryAmount = ReadLine("MaxAmountPurchasableEveryAmount", MaxAmountPurchasableEveryAmount);
                             CanBuyCurrencyInworld = ReadLine("CanBuyCurrencyInworld", CanBuyCurrencyInworld);
+                            RealCurrencyConversionFactor = ReadLine("RealCirrencyConversionFactor", RealCurrencyConversionFactor);
+                            AdditionPercentage = ReadLine("AdditionPercentage", AdditionPercentage);
+                            AdditionAmount = ReadLine("AdditionAmount", AdditionAmount);
+                            MaxAmountBeforeLogging = ReadLine("MaxAmountBeforeLogging", MaxAmountBeforeLogging);
+                            GroupPayments = ReadLine("GroupPayments", GroupPayments);
+                            NewUserStipend = ReadLine("NewUserStipend", NewUserStipend);
+                            PayStipends = ReadLine("PayStipends", PayStipends);
+                            Stipend = ReadLine("Stipend", Stipend);
+                            StipendPeriod = ReadLine("StipendPeriod", StipendPeriod);
+                            StipendInterval = ReadLine("StipendInterval", StipendInterval);
+                            StipendPayDay = ReadLine("StipendPayDay", StipendPayDay);
+                            StipendPayTime = ReadLine("StipendPayTime", StipendPayTime);
+                            StipendsLoginRequired = ReadLine("StipendsLoginRequired", StipendsLoginRequired);
+                            conf = economy_ini.AddConfig("Handlers");
+                            IBaseCurrencyConnectorOpenServerHandler = ReadLine("IBaseCurrencyConnectorOpenServerHandler",IBaseCurrencyConnectorOpenServerHandler);
+                            IBaseCurrencyConnectorServerHandlerPort = ReadLine("IBaseCurrencyConnectorServerHandlerPort", IBaseCurrencyConnectorServerHandlerPort);
+                            ///Start Writing ini
+
                         }
+                     
 
 
 
-                        ///Start Reading Lines
 
                     }
                     if (isStandalone)

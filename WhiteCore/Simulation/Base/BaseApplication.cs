@@ -289,7 +289,7 @@ namespace WhiteCore.Simulation.Base
                         var economy_ini = new IniConfigSource(
                             cfgFolder + "Grid/ServerConfiguration/Modules/Economy.ini",
                             Nini.Ini.IniFileType.AuroraStyle);
-                        IConfig conf = economy_ini.AddConfig("Currency");
+                        
                         ///Strings
                         string Module = "BaseCurrency";
                         string SaveTransactionLogs = "true";
@@ -359,11 +359,47 @@ namespace WhiteCore.Simulation.Base
                             StipendPayDay = ReadLine("StipendPayDay", StipendPayDay);
                             StipendPayTime = ReadLine("StipendPayTime", StipendPayTime);
                             StipendsLoginRequired = ReadLine("StipendsLoginRequired", StipendsLoginRequired);
-                            conf = economy_ini.AddConfig("Handlers");
+                            
                             IBaseCurrencyConnectorOpenServerHandler = ReadLine("IBaseCurrencyConnectorOpenServerHandler",IBaseCurrencyConnectorOpenServerHandler);
                             IBaseCurrencyConnectorServerHandlerPort = ReadLine("IBaseCurrencyConnectorServerHandlerPort", IBaseCurrencyConnectorServerHandlerPort);
                             ///Start Writing ini
+                            IConfig conf = economy_ini.AddConfig("Currency");
+                            conf.Set("Module", Module);
+                            conf.Set("SaveTransactionLogs", SaveTransactionLogs);
+                            conf.Set("ClientPort", ClientPort);
+                            conf.Set("ErrorURI", erroruri);
+                            conf.Set("UpgradeMembershipUri",Upgrade);
+                            conf.Set("PriceUpload", priceupload);
+                            conf.Set("PriceGroupCreate",PriceGroupCreate);
+                            conf.Set("PriceDirecotryFee",PriceDirectoryFee);
+                            conf.Set("MaxAmountPurchaseable",maxamountpurchasable);
+                            conf.Set("MinAmountPurchasable",minamountpurchasable);
+                            conf.Set("MaxAmountPurchasableOverTime",MaxAmountPurchasableoverTime);
+                            conf.Set("MaxAmountPurchasableEveryType",MaxAmountPurchasableEveryType);
+                            conf.Set("MaxAmountPurchasableEveryAmount",MaxAmountPurchasableEveryType);
+                            conf.Set("CanBuyCurrencyInworld",CanBuyCurrencyInworld);
+                            conf.Set("RealCurrencyConversionFactor",RealCurrencyConversionFactor);
+                            conf.Set("AdditionPercentage",AdditionPercentage);
+                            conf.Set("AdditionAmount",AdditionAmount);
+                            conf.Set("MaxAmountBrforeLogging",MaxAmountBeforeLogging);
+                            conf.Set("GroupPayments",GroupPayments);
+                            conf.Set("NewUserStipend",NewUserStipend);
+                            conf.Set("PayStipends",PayStipends);
+                            conf.Set("Stipend",Stipend);
+                            conf.Set("StipendsPremiumOnly",StipendsPremiumOnly);
+                            conf.Set("StipendPeriod",StipendPeriod);
+                            conf.Set("StipendInterval",StipendInterval);
+                            conf.Set("StipendPayDay",StipendPayDay);
+                            conf.Set("StipendPayTime",StipendPayTime);
+                            conf.Set("StipendsLoginRequired",StipendsLoginRequired);
 
+                            conf = economy_ini.AddConfig("Handlers");
+                            conf.Set("IBaseCurrencyConnectorOpenServerHandler",IBaseCurrencyConnectorOpenServerHandler);
+                            conf.Set("IBaseCurrencyConnectorServerHandlerPort", IBaseCurrencyConnectorServerHandlerPort);
+                            economy_ini.Save();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write("Your Economy.ini has been Configured\n");
+                            Console.ResetColor();
                         }
                      
 

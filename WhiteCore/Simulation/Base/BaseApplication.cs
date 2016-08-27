@@ -381,7 +381,7 @@ namespace WhiteCore.Simulation.Base
                             conf.Set("RealCurrencyConversionFactor",RealCurrencyConversionFactor);
                             conf.Set("AdditionPercentage",AdditionPercentage);
                             conf.Set("AdditionAmount",AdditionAmount);
-                            conf.Set("MaxAmountBrforeLogging",MaxAmountBeforeLogging);
+                            conf.Set("MaxAmountBeforeLogging",MaxAmountBeforeLogging);
                             conf.Set("GroupPayments",GroupPayments);
                             conf.Set("NewUserStipend",NewUserStipend);
                             conf.Set("PayStipends",PayStipends);

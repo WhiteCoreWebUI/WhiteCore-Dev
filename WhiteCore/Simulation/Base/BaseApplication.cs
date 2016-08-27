@@ -330,7 +330,7 @@ namespace WhiteCore.Simulation.Base
                             Console.Write("Configuring Economy Settings\n");
                             Console.ResetColor();
                             Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write("---- WARNING WARNING ----\n This is a Advanced Setup which uses the .ini names\n If you are not sure what to do here press eneter to every Question\n ---- WARNING WARNING ----");
+                            Console.Write("---- WARNING WARNING ----\n This is a Advanced Setup which uses the .ini names\n If you are not sure what to do here press eneter to every Question\n ---- WARNING WARNING ----\n");
                             Console.ResetColor();
                             Module = ReadLine("Module", Module);
                             SaveTransactionLogs = ReadLine("SaveTransactionLogs", SaveTransactionLogs);

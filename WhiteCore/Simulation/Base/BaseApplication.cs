@@ -61,7 +61,9 @@ namespace WhiteCore.Simulation.Base
         /// <summary>
         ///     Directory to save crash reports to.  Relative to bin/
         /// </summary>
-        public static string m_crashDir = "crashes";
+        
+        
+            public static string m_crashDir = "crashes";
 
         static bool _IsHandlingException; // Make sure we don't go recursive on ourselves
 
@@ -121,8 +123,8 @@ namespace WhiteCore.Simulation.Base
             configSource.AddSwitch("Console", "LogAppendName");
             configSource.AddSwitch("Console", "LogPath");
             configSource.AddSwitch("Network", "http_listener_port");
-
-            IConfigSource m_configSource = Configuration(configSource, defaultIniFile);
+           
+        IConfigSource m_configSource = Configuration(configSource, defaultIniFile);
             if (m_configSource == null)
                 Environment.Exit(0);            // No configuration.. exit
 
@@ -138,7 +140,8 @@ namespace WhiteCore.Simulation.Base
 
         public static void Configure(bool requested)
         {
-            string WhiteCore_ConfigDir = Constants.DEFAULT_CONFIG_DIR;
+           string run_advanced = "No";
+        string WhiteCore_ConfigDir = Constants.DEFAULT_CONFIG_DIR;
             bool isWhiteCoreExe = AppDomain.CurrentDomain.FriendlyName == "WhiteCore.exe" ||
                 AppDomain.CurrentDomain.FriendlyName == "WhiteCore.vshost.exe";
 
@@ -283,257 +286,261 @@ namespace WhiteCore.Simulation.Base
 
                         allowAnonLogin = ReadLine("Create accounts automatically?", allowAnonLogin);
                     }
-                    if (isStandalone)
+                    run_advanced = ReadLine("Do you want to perform a Advanced Setup? (Yes/No)", run_advanced);
+                    if (run_advanced == "Yes")
                     {
-                        MakeSureExists(cfgFolder + "Grid/ServerConfiguration/Modules/Economy.ini");
-                        var economy_ini = new IniConfigSource(
-                            cfgFolder + "Grid/ServerConfiguration/Modules/Economy.ini",
-                            Nini.Ini.IniFileType.AuroraStyle);
-                        
-                        ///Strings
-                        string Module = "BaseCurrency";
-                        string SaveTransactionLogs = "true";
-                        string ClientPort = "8009";
-                        string erroruri = "http://ServersHostname:8009";
-                        string Upgrade = erroruri;
-                        string priceupload = "10";
-                        string PriceGroupCreate = "100";
-                        string PriceDirectoryFee = "30";
-                        string maxamountpurchasable = "10000";
-                        string minamountpurchasable = "0";
-                        string MaxAmountPurchasableoverTime = "100000";
-                        string MaxAmountPurchasableEveryType = "weeks";
-                        string MaxAmountPurchasableEveryAmount = "1";
-                        string CanBuyCurrencyInworld = "true";
-                        string RealCurrencyConversionFactor = "500";
-                        string AdditionPercentage = "291";
-                        string AdditionAmount = "30";
-                        string MaxAmountBeforeLogging = "-1";
-                        string GroupPayments = "false";
-                        string NewUserStipend = "0";
-                        string PayStipends = "false";
-                        string Stipend = "0";
-                        string StipendsPremiumOnly = "false";
-                        string StipendPeriod = "week";
-                        string StipendInterval = "1";
-                        string StipendPayDay = "tuesday";
-                        string StipendPayTime = "00:05";
-                        string StipendsLoginRequired = "false";
-                        string IBaseCurrencyConnectorOpenServerHandler = "true";
-                        string IBaseCurrencyConnectorServerHandlerPort = "8009";
-                        string configure_eco = "yes";
-                        configure_eco = ReadLine("Configure Economy", configure_eco);
-
-                        if (configure_eco == "yes")
+                        if (isStandalone)
                         {
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                            Console.Write("Configuring Economy Settings\n");
-                            Console.ResetColor();
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write("---- WARNING WARNING ----\n This is a Advanced Setup which uses the .ini names\n If you are not sure what to do here press eneter to every Question\n ---- WARNING WARNING ----\n");
-                            Console.ResetColor();
-                            Module = ReadLine("Module", Module);
-                            SaveTransactionLogs = ReadLine("SaveTransactionLogs", SaveTransactionLogs);
-                            ClientPort = ReadLine("ClientPort", ClientPort);
-                            erroruri = ReadLine("ErrorURI", erroruri);
-                            Upgrade = ReadLine("UpgradeMembershipUri", Upgrade);
-                            priceupload = ReadLine("PriceUpload", priceupload);
-                            PriceGroupCreate = ReadLine("PriceGroupCreate", PriceGroupCreate);
-                            PriceDirectoryFee = ReadLine("PriceDirectoryFee", PriceDirectoryFee);
-                            maxamountpurchasable = ReadLine("MaxAmountPurchasable", maxamountpurchasable);
-                            minamountpurchasable = ReadLine("MinAmountPurchasable", minamountpurchasable);
-                            MaxAmountPurchasableoverTime = ReadLine("MaxAmountPurchasableOverTime", MaxAmountPurchasableoverTime);
-                            MaxAmountPurchasableEveryType = ReadLine("MaxAmountPurchasableEveryType", MaxAmountPurchasableEveryType);
-                            MaxAmountPurchasableEveryAmount = ReadLine("MaxAmountPurchasableEveryAmount", MaxAmountPurchasableEveryAmount);
-                            CanBuyCurrencyInworld = ReadLine("CanBuyCurrencyInworld", CanBuyCurrencyInworld);
-                            RealCurrencyConversionFactor = ReadLine("RealCirrencyConversionFactor", RealCurrencyConversionFactor);
-                            AdditionPercentage = ReadLine("AdditionPercentage", AdditionPercentage);
-                            AdditionAmount = ReadLine("AdditionAmount", AdditionAmount);
-                            MaxAmountBeforeLogging = ReadLine("MaxAmountBeforeLogging", MaxAmountBeforeLogging);
-                            GroupPayments = ReadLine("GroupPayments", GroupPayments);
-                            NewUserStipend = ReadLine("NewUserStipend", NewUserStipend);
-                            PayStipends = ReadLine("PayStipends", PayStipends);
-                            Stipend = ReadLine("Stipend", Stipend);
-                            StipendPeriod = ReadLine("StipendPeriod", StipendPeriod);
-                            StipendInterval = ReadLine("StipendInterval", StipendInterval);
-                            StipendPayDay = ReadLine("StipendPayDay", StipendPayDay);
-                            StipendPayTime = ReadLine("StipendPayTime", StipendPayTime);
-                            StipendsLoginRequired = ReadLine("StipendsLoginRequired", StipendsLoginRequired);
-                            
-                            IBaseCurrencyConnectorOpenServerHandler = ReadLine("IBaseCurrencyConnectorOpenServerHandler",IBaseCurrencyConnectorOpenServerHandler);
-                            IBaseCurrencyConnectorServerHandlerPort = ReadLine("IBaseCurrencyConnectorServerHandlerPort", IBaseCurrencyConnectorServerHandlerPort);
-                            ///Start Writing ini
-                            IConfig conf = economy_ini.AddConfig("Currency");
-                            conf.Set("Module", Module);
-                            conf.Set("SaveTransactionLogs", SaveTransactionLogs);
-                            conf.Set("ClientPort", ClientPort);
-                            conf.Set("ErrorURI", erroruri);
-                            conf.Set("UpgradeMembershipUri",Upgrade);
-                            conf.Set("PriceUpload", priceupload);
-                            conf.Set("PriceGroupCreate",PriceGroupCreate);
-                            conf.Set("PriceDirecotryFee",PriceDirectoryFee);
-                            conf.Set("MaxAmountPurchaseable",maxamountpurchasable);
-                            conf.Set("MinAmountPurchasable",minamountpurchasable);
-                            conf.Set("MaxAmountPurchasableOverTime",MaxAmountPurchasableoverTime);
-                            conf.Set("MaxAmountPurchasableEveryType",MaxAmountPurchasableEveryType);
-                            conf.Set("MaxAmountPurchasableEveryAmount",MaxAmountPurchasableEveryType);
-                            conf.Set("CanBuyCurrencyInworld",CanBuyCurrencyInworld);
-                            conf.Set("RealCurrencyConversionFactor",RealCurrencyConversionFactor);
-                            conf.Set("AdditionPercentage",AdditionPercentage);
-                            conf.Set("AdditionAmount",AdditionAmount);
-                            conf.Set("MaxAmountBeforeLogging",MaxAmountBeforeLogging);
-                            conf.Set("GroupPayments",GroupPayments);
-                            conf.Set("NewUserStipend",NewUserStipend);
-                            conf.Set("PayStipends",PayStipends);
-                            conf.Set("Stipend",Stipend);
-                            conf.Set("StipendsPremiumOnly",StipendsPremiumOnly);
-                            conf.Set("StipendPeriod",StipendPeriod);
-                            conf.Set("StipendInterval",StipendInterval);
-                            conf.Set("StipendPayDay",StipendPayDay);
-                            conf.Set("StipendPayTime",StipendPayTime);
-                            conf.Set("StipendsLoginRequired",StipendsLoginRequired);
+                            MakeSureExists(cfgFolder + "Grid/ServerConfiguration/Modules/Economy.ini");
+                            var economy_ini = new IniConfigSource(
+                                cfgFolder + "Grid/ServerConfiguration/Modules/Economy.ini",
+                                Nini.Ini.IniFileType.AuroraStyle);
 
-                            conf = economy_ini.AddConfig("Handlers");
-                            conf.Set("IBaseCurrencyConnectorOpenServerHandler",IBaseCurrencyConnectorOpenServerHandler);
-                            conf.Set("IBaseCurrencyConnectorServerHandlerPort", IBaseCurrencyConnectorServerHandlerPort);
-                            economy_ini.Save();
+                            ///Strings
+                            string Module = "BaseCurrency";
+                            string SaveTransactionLogs = "true";
+                            string ClientPort = "8009";
+                            string erroruri = "http://ServersHostname:8009";
+                            string Upgrade = erroruri;
+                            string priceupload = "10";
+                            string PriceGroupCreate = "100";
+                            string PriceDirectoryFee = "30";
+                            string maxamountpurchasable = "10000";
+                            string minamountpurchasable = "0";
+                            string MaxAmountPurchasableoverTime = "100000";
+                            string MaxAmountPurchasableEveryType = "weeks";
+                            string MaxAmountPurchasableEveryAmount = "1";
+                            string CanBuyCurrencyInworld = "true";
+                            string RealCurrencyConversionFactor = "500";
+                            string AdditionPercentage = "291";
+                            string AdditionAmount = "30";
+                            string MaxAmountBeforeLogging = "-1";
+                            string GroupPayments = "false";
+                            string NewUserStipend = "0";
+                            string PayStipends = "false";
+                            string Stipend = "0";
+                            string StipendsPremiumOnly = "false";
+                            string StipendPeriod = "week";
+                            string StipendInterval = "1";
+                            string StipendPayDay = "tuesday";
+                            string StipendPayTime = "00:05";
+                            string StipendsLoginRequired = "false";
+                            string IBaseCurrencyConnectorOpenServerHandler = "true";
+                            string IBaseCurrencyConnectorServerHandlerPort = "8009";
+                            string configure_eco = "yes";
+                            configure_eco = ReadLine("Configure Economy", configure_eco);
+
+                            if (configure_eco == "yes")
+                            {
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.Write("Configuring Economy Settings\n");
+                                Console.ResetColor();
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write("---- WARNING WARNING ----\n This is a Advanced Setup which uses the .ini names\n If you are not sure what to do here press eneter to every Question\n ---- WARNING WARNING ----\n");
+                                Console.ResetColor();
+                                Module = ReadLine("Module", Module);
+                                SaveTransactionLogs = ReadLine("SaveTransactionLogs", SaveTransactionLogs);
+                                ClientPort = ReadLine("ClientPort", ClientPort);
+                                erroruri = ReadLine("ErrorURI", erroruri);
+                                Upgrade = ReadLine("UpgradeMembershipUri", Upgrade);
+                                priceupload = ReadLine("PriceUpload", priceupload);
+                                PriceGroupCreate = ReadLine("PriceGroupCreate", PriceGroupCreate);
+                                PriceDirectoryFee = ReadLine("PriceDirectoryFee", PriceDirectoryFee);
+                                maxamountpurchasable = ReadLine("MaxAmountPurchasable", maxamountpurchasable);
+                                minamountpurchasable = ReadLine("MinAmountPurchasable", minamountpurchasable);
+                                MaxAmountPurchasableoverTime = ReadLine("MaxAmountPurchasableOverTime", MaxAmountPurchasableoverTime);
+                                MaxAmountPurchasableEveryType = ReadLine("MaxAmountPurchasableEveryType", MaxAmountPurchasableEveryType);
+                                MaxAmountPurchasableEveryAmount = ReadLine("MaxAmountPurchasableEveryAmount", MaxAmountPurchasableEveryAmount);
+                                CanBuyCurrencyInworld = ReadLine("CanBuyCurrencyInworld", CanBuyCurrencyInworld);
+                                RealCurrencyConversionFactor = ReadLine("RealCirrencyConversionFactor", RealCurrencyConversionFactor);
+                                AdditionPercentage = ReadLine("AdditionPercentage", AdditionPercentage);
+                                AdditionAmount = ReadLine("AdditionAmount", AdditionAmount);
+                                MaxAmountBeforeLogging = ReadLine("MaxAmountBeforeLogging", MaxAmountBeforeLogging);
+                                GroupPayments = ReadLine("GroupPayments", GroupPayments);
+                                NewUserStipend = ReadLine("NewUserStipend", NewUserStipend);
+                                PayStipends = ReadLine("PayStipends", PayStipends);
+                                Stipend = ReadLine("Stipend", Stipend);
+                                StipendPeriod = ReadLine("StipendPeriod", StipendPeriod);
+                                StipendInterval = ReadLine("StipendInterval", StipendInterval);
+                                StipendPayDay = ReadLine("StipendPayDay", StipendPayDay);
+                                StipendPayTime = ReadLine("StipendPayTime", StipendPayTime);
+                                StipendsLoginRequired = ReadLine("StipendsLoginRequired", StipendsLoginRequired);
+
+                                IBaseCurrencyConnectorOpenServerHandler = ReadLine("IBaseCurrencyConnectorOpenServerHandler", IBaseCurrencyConnectorOpenServerHandler);
+                                IBaseCurrencyConnectorServerHandlerPort = ReadLine("IBaseCurrencyConnectorServerHandlerPort", IBaseCurrencyConnectorServerHandlerPort);
+                                ///Start Writing ini
+                                IConfig conf = economy_ini.AddConfig("Currency");
+                                conf.Set("Module", Module);
+                                conf.Set("SaveTransactionLogs", SaveTransactionLogs);
+                                conf.Set("ClientPort", ClientPort);
+                                conf.Set("ErrorURI", erroruri);
+                                conf.Set("UpgradeMembershipUri", Upgrade);
+                                conf.Set("PriceUpload", priceupload);
+                                conf.Set("PriceGroupCreate", PriceGroupCreate);
+                                conf.Set("PriceDirecotryFee", PriceDirectoryFee);
+                                conf.Set("MaxAmountPurchaseable", maxamountpurchasable);
+                                conf.Set("MinAmountPurchasable", minamountpurchasable);
+                                conf.Set("MaxAmountPurchasableOverTime", MaxAmountPurchasableoverTime);
+                                conf.Set("MaxAmountPurchasableEveryType", MaxAmountPurchasableEveryType);
+                                conf.Set("MaxAmountPurchasableEveryAmount", MaxAmountPurchasableEveryType);
+                                conf.Set("CanBuyCurrencyInworld", CanBuyCurrencyInworld);
+                                conf.Set("RealCurrencyConversionFactor", RealCurrencyConversionFactor);
+                                conf.Set("AdditionPercentage", AdditionPercentage);
+                                conf.Set("AdditionAmount", AdditionAmount);
+                                conf.Set("MaxAmountBeforeLogging", MaxAmountBeforeLogging);
+                                conf.Set("GroupPayments", GroupPayments);
+                                conf.Set("NewUserStipend", NewUserStipend);
+                                conf.Set("PayStipends", PayStipends);
+                                conf.Set("Stipend", Stipend);
+                                conf.Set("StipendsPremiumOnly", StipendsPremiumOnly);
+                                conf.Set("StipendPeriod", StipendPeriod);
+                                conf.Set("StipendInterval", StipendInterval);
+                                conf.Set("StipendPayDay", StipendPayDay);
+                                conf.Set("StipendPayTime", StipendPayTime);
+                                conf.Set("StipendsLoginRequired", StipendsLoginRequired);
+
+                                conf = economy_ini.AddConfig("Handlers");
+                                conf.Set("IBaseCurrencyConnectorOpenServerHandler", IBaseCurrencyConnectorOpenServerHandler);
+                                conf.Set("IBaseCurrencyConnectorServerHandlerPort", IBaseCurrencyConnectorServerHandlerPort);
+                                economy_ini.Save();
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write("Your Economy.ini has been Configured\n");
+                                Console.ResetColor();
+                            }
+
+
+
+
+
+                        }
+                        if (isStandalone)
+                        {
+                            MakeSureExists(cfgFolder + "Grid/ServerConfiguration/Modules/VoiceModules.ini");
+                            var voice_ini = new IniConfigSource(
+                                cfgFolder + "Grid/ServerConfiguration/Modules/VoiceModules.ini",
+                                Nini.Ini.IniFileType.AuroraStyle);
+                            IConfig conf = voice_ini.AddConfig("Voice");
+                            ///Vivox Base Strings
+                            string vivox_server = "www.osp.vivox.com";
+                            string vivox_sip_uri = "osp.vivox.com";
+                            string vivox_admin_user = "DeepThroat";
+                            string vivox_admin_password = "VoiceG4te";
+                            ///Freeswitch Base Strings
+                            string server_address = "127.0.0.1";
+                            string realm = "127.0.0.1";
+                            string sipproxy = "127.0.0.1:5060";
+                            string echoserver = "127.0.0.1";
+                            string echoport = "50505";
+                            string attemptstun = "false";
+                            string defaulttimeout = "5000";
+                            string context = "default"; //needed?
+                            string username = "freeswitch";
+                            string password = "";
+                            ///Murmur Base Strings
+                            string murmurservice = "MurmurService";
+                            string murmur_ice_cb = "tcp -h 127.0.0.1 -p 6503";
+                            string murmur_host = "127.0.0.1";
+                            string murmur_ice = "tcp -h 127.0.0.1 -p 6502";
+                            string use_one_channel = "false";
+                            string channel_name = "DracoServer";
+                            string murmur_sid = "1";
+                            string server_version = "1.2.2";
+                            string glacier = "false";
+                            string glacier_ice = "Glacier2/router:tcp -p 4063 -h 137.30.248.26";
+                            string glacier_user = "admin";
+                            string glacier_pass = "darastrix";
+
+
+
+
+                            VoiceModule = ReadLine("VoiceModule to use: [Generic/Freeswitch/Murmur/ViVox", "Generic");
+                            if (VoiceModule == "Generic")
+                            {
+                                conf.Set("Module", "GenericVoice");
+
+                            }
+                            else if (VoiceModule == "ViVox")
+                            {
+                                conf.Set("Module", "VivoxVoice");
+                                conf = voice_ini.AddConfig("VivoxVoice");
+                                vivox_server = ReadLine("Vivox Server:", vivox_server);
+                                vivox_sip_uri = ReadLine("Vivox SIP Uri:", vivox_sip_uri);
+                                vivox_admin_user = ReadLine("Vivox Admin User:", vivox_admin_user);
+                                vivox_admin_password = ReadLine("Vivox Admin Password:", vivox_admin_password);
+                                conf.Set("vivox_server", vivox_server);
+                                conf.Set("vivox_sip_uri", vivox_sip_uri);
+                                conf.Set("vivox_admin_user", vivox_admin_user);
+                                conf.Set("vivox_admin_password", vivox_admin_password);
+
+                            }
+                            else if (VoiceModule == "Freeswitch")
+                            {
+                                conf.Set("Module", "FreeSwitchVoice");
+                                conf = voice_ini.AddConfig("FreeswitchService");
+                                server_address = ReadLine("Freeswitch Server", server_address);
+                                realm = ReadLine("Realm", realm);
+                                sipproxy = ReadLine("SIPProxy", sipproxy);
+                                echoserver = ReadLine("EchoServer", echoserver);
+                                echoport = ReadLine("EchoPort", echoport);
+                                attemptstun = ReadLine("AttemptSTUN", attemptstun);
+                                defaulttimeout = ReadLine("DefaultTimeout", defaulttimeout);
+                                context = ReadLine("Context", context);
+                                username = ReadLine("Username", username);
+                                password = ReadLine("Password", password);
+                                conf.Set("ServerAddress", server_address);
+                                conf.Set("Realm", realm);
+                                conf.Set("SIPProxy", sipproxy);
+                                conf.Set("EchoServer", echoserver);
+                                conf.Set("EchoPort", echoport);
+                                conf.Set("AttemptSTUN", attemptstun);
+                                conf.Set("DefaultTimeout", defaulttimeout);
+                                conf.Set("Context", context);
+                                conf.Set("UserName", username);
+                                conf.Set("Password", password);
+
+                            }
+                            else if (VoiceModule == "Murmur")
+                            {
+                                conf.Set("Module", "MurmurVoice");
+                                conf = voice_ini.AddConfig("MurmurService");
+                                murmurservice = ReadLine("MurmurService", murmurservice);
+                                murmur_ice_cb = ReadLine("Murmur Ice CB", murmur_ice_cb);
+                                murmur_host = ReadLine("MurmurHost", murmur_host);
+                                murmur_ice = ReadLine("Murmur Ice", murmur_ice);
+                                use_one_channel = ReadLine("Use One Channel [true/false]", use_one_channel);
+                                channel_name = ReadLine("ChannelName", channel_name);
+                                murmur_sid = ReadLine("Murmur Sid", murmur_sid);
+                                server_version = ReadLine("Server Version", server_version);
+                                glacier = ReadLine("Glacier", glacier);
+                                glacier_ice = ReadLine("Glacier Ice", glacier_ice);
+                                glacier_user = ReadLine("Glacier User", glacier_user);
+                                glacier_pass = ReadLine("Glacier Pass", glacier_pass);
+                                conf.Set("MurmurService", murmurservice);
+                                conf.Set("murmur_ice_cb", murmur_ice_cb);
+                                conf.Set("murmur_host", murmur_host);
+                                conf.Set("use_one_channel", use_one_channel);
+                                conf.Set("channel_name", channel_name);
+                                conf.Set("murmur_sid", murmur_sid);
+                                conf.Set("server_version", server_version);
+                                conf.Set("glacier", glacier);
+                                conf.Set("glacier_ice", glacier_ice);
+                                conf.Set("glacier_user", glacier_user);
+                                conf.Set("glacier_pass", glacier_pass);
+
+
+                            }
+                            else
+                            {
+                                Console.Write("Invalid Entry Setting Module to GenericVoice\n");
+                                conf.Set("Module", "GenericVoice");
+                            }
+
+                            voice_ini.Save();
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write("Your Economy.ini has been Configured\n");
+                            Console.Write("Your VoiceModules.ini has been Configured");
                             Console.ResetColor();
+                            Console.Write("\n");
                         }
-                     
-
-
-
-
-                    }
-                    if (isStandalone)
-                    {
-                        MakeSureExists(cfgFolder + "Grid/ServerConfiguration/Modules/VoiceModules.ini");
-                        var voice_ini = new IniConfigSource(
-                            cfgFolder + "Grid/ServerConfiguration/Modules/VoiceModules.ini",
-                            Nini.Ini.IniFileType.AuroraStyle);
-                        IConfig conf = voice_ini.AddConfig("Voice");
-                        ///Vivox Base Strings
-                        string vivox_server = "www.osp.vivox.com";
-                        string vivox_sip_uri = "osp.vivox.com";
-                        string vivox_admin_user = "DeepThroat";
-                        string vivox_admin_password = "VoiceG4te";
-                        ///Freeswitch Base Strings
-                        string server_address = "127.0.0.1";
-                        string realm = "127.0.0.1";
-                        string sipproxy = "127.0.0.1:5060";
-                        string echoserver = "127.0.0.1";
-                        string echoport = "50505";
-                        string attemptstun = "false";
-                        string defaulttimeout = "5000";
-                        string context = "default"; //needed?
-                        string username = "freeswitch";
-                        string password = "";
-                        ///Murmur Base Strings
-                        string murmurservice = "MurmurService";
-                        string murmur_ice_cb = "tcp -h 127.0.0.1 -p 6503";
-                        string murmur_host = "127.0.0.1";
-                        string murmur_ice = "tcp -h 127.0.0.1 -p 6502";
-                        string use_one_channel = "false";
-                        string channel_name = "DracoServer";
-                        string murmur_sid = "1";
-                        string server_version = "1.2.2";
-                        string glacier = "false";
-                        string glacier_ice = "Glacier2/router:tcp -p 4063 -h 137.30.248.26";
-                        string glacier_user = "admin";
-                        string glacier_pass = "darastrix";
-
-
-
-
-                        VoiceModule = ReadLine("VoiceModule to use: [Generic/Freeswitch/Murmur/ViVox", "Generic");
-                        if (VoiceModule == "Generic")
-                        {
-                            conf.Set("Module", "GenericVoice");
-
-                        }
-                        else if (VoiceModule == "ViVox")
-                        {
-                            conf.Set("Module", "VivoxVoice");
-                            conf = voice_ini.AddConfig("VivoxVoice");
-                            vivox_server = ReadLine("Vivox Server:", vivox_server);
-                            vivox_sip_uri = ReadLine("Vivox SIP Uri:", vivox_sip_uri);
-                            vivox_admin_user = ReadLine("Vivox Admin User:", vivox_admin_user);
-                            vivox_admin_password = ReadLine("Vivox Admin Password:", vivox_admin_password);
-                            conf.Set("vivox_server", vivox_server);
-                            conf.Set("vivox_sip_uri", vivox_sip_uri);
-                            conf.Set("vivox_admin_user", vivox_admin_user);
-                            conf.Set("vivox_admin_password", vivox_admin_password);
-
-                        }
-                        else if (VoiceModule == "Freeswitch")
-                        {
-                            conf.Set("Module", "FreeSwitchVoice");
-                            conf = voice_ini.AddConfig("FreeswitchService");
-                            server_address = ReadLine("Freeswitch Server", server_address);
-                            realm = ReadLine("Realm", realm);
-                            sipproxy = ReadLine("SIPProxy", sipproxy);
-                            echoserver = ReadLine("EchoServer", echoserver);
-                            echoport = ReadLine("EchoPort", echoport);
-                            attemptstun = ReadLine("AttemptSTUN", attemptstun);
-                            defaulttimeout = ReadLine("DefaultTimeout", defaulttimeout);
-                            context = ReadLine("Context", context);
-                            username = ReadLine("Username", username);
-                            password = ReadLine("Password", password);
-                            conf.Set("ServerAddress", server_address);
-                            conf.Set("Realm", realm);
-                            conf.Set("SIPProxy", sipproxy);
-                            conf.Set("EchoServer", echoserver);
-                            conf.Set("EchoPort", echoport);
-                            conf.Set("AttemptSTUN", attemptstun);
-                            conf.Set("DefaultTimeout", defaulttimeout);
-                            conf.Set("Context", context);
-                            conf.Set("UserName", username);
-                            conf.Set("Password", password);
-
-                        }
-                        else if (VoiceModule == "Murmur")
-                        {
-                            conf.Set("Module", "MurmurVoice");
-                            conf = voice_ini.AddConfig("MurmurService");
-                            murmurservice = ReadLine("MurmurService", murmurservice);
-                            murmur_ice_cb = ReadLine("Murmur Ice CB", murmur_ice_cb);
-                            murmur_host = ReadLine("MurmurHost", murmur_host);
-                            murmur_ice = ReadLine("Murmur Ice", murmur_ice);
-                            use_one_channel = ReadLine("Use One Channel [true/false]", use_one_channel);
-                            channel_name = ReadLine("ChannelName", channel_name);
-                            murmur_sid = ReadLine("Murmur Sid", murmur_sid);
-                            server_version = ReadLine("Server Version", server_version);
-                            glacier = ReadLine("Glacier", glacier);
-                            glacier_ice = ReadLine("Glacier Ice", glacier_ice);
-                            glacier_user = ReadLine("Glacier User", glacier_user);
-                            glacier_pass = ReadLine("Glacier Pass", glacier_pass);
-                            conf.Set("MurmurService", murmurservice);
-                            conf.Set("murmur_ice_cb", murmur_ice_cb);
-                            conf.Set("murmur_host", murmur_host);
-                            conf.Set("use_one_channel", use_one_channel);
-                            conf.Set("channel_name", channel_name);
-                            conf.Set("murmur_sid", murmur_sid);
-                            conf.Set("server_version", server_version);
-                            conf.Set("glacier", glacier);
-                            conf.Set("glacier_ice", glacier_ice);
-                            conf.Set("glacier_user", glacier_user);
-                            conf.Set("glacier_pass", glacier_pass);
-
-
-                        }
-                        else
-                        {
-                            Console.Write("Invalid Entry Setting Module to GenericVoice\n");
-                            conf.Set("Module", "GenericVoice");
-                        }
-
-                        voice_ini.Save();
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("Your VoiceModules.ini has been Configured");
-                        Console.ResetColor();
-                        Console.Write("\n");
                     }
                     if (!isStandalone)
                         gridIPAddress =

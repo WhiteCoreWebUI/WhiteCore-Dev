@@ -317,8 +317,7 @@ namespace WhiteCore.Services
                                        {"display_name", OSD.FromString(newDisplayName)},
                                        {
                                            "display_name_next_update", OSD.FromDate(
-                                               DateTime.ParseExact("1970-01-01 00:00:00 +0", "yyyy-MM-dd hh:mm:ss z",
-                                                                   DateTimeFormatInfo.InvariantInfo).ToUniversalTime())
+                                              DateTime.UtcNow.AddDays(8))
                                        },
                                        {"id", OSD.FromUUID(iD)},
                                        {"is_display_name_default", OSD.FromBoolean(isDefault)},

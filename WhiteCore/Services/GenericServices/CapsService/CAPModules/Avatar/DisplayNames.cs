@@ -358,7 +358,7 @@ namespace WhiteCore.Services
             content.Add("display_name", OSD.FromString(newDisplayName));
             content.Add("display_name_next_update",
                         OSD.FromDate(
-                            DateTime.UtcNow.AddDays(8));
+                            DateTime.UtcNow.AddDays(8)));
             content.Add("id", OSD.FromUUID(iD));
             content.Add("is_display_name_default", OSD.FromBoolean(isDefault));
             content.Add("legacy_first_name", OSD.FromString(first));

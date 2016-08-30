@@ -224,20 +224,59 @@ namespace WhiteCore.Services
 
             return OSDParser.SerializeLLSDXmlBytes(map);
         }
+        string display_update_enabled = "false";
+        double display_update_days = 0;
+        public void Initialize(IConfigSource config, IRegistryCore registry)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("READING INI FOR DISPLAY NAMES");
+            Console.ResetColor();
+            IConfig displayconfig = config.Configs["DisplayNames"];
+            if (displayconfig == null)
+                return;
+            display_update_enabled = displayconfig.GetString("UpdateTimeEnabled", display_update_enabled);
+            display_update_days = displayconfig.GetDouble("UpdateTimeSet", display_update_days);
+
+        }
 
         void PackUserInfo(IUserProfileInfo info, UserAccount account, ref OSDArray agents)
         {
-            OSDMap agentMap = new OSDMap();
-            agentMap["username"] = account.Name;
-            agentMap["display_name"] = (info == null || info.DisplayName == "") ? account.Name : info.DisplayName;
-            agentMap["display_name_next_update"] = OSD.FromDate(DateTime.UtcNow.AddDays(8));
-            agentMap["legacy_first_name"] = account.FirstName;
-            agentMap["legacy_last_name"] = account.LastName;
-            agentMap["id"] = account.PrincipalID;
-            agentMap["is_display_name_default"] = isDefaultDisplayName(account.FirstName, account.LastName, account.Name,
-                                                                       info == null ? account.Name : info.DisplayName);
+            if (display_update_enabled == "false")
+            {
+                Console.Write("DisplayNames.ini enabled\n");
+                OSDMap agentMap = new OSDMap();
+                agentMap["username"] = account.Name;
+                agentMap["display_name"] = (info == null || info.DisplayName == "") ? account.Name : info.DisplayName;
+                agentMap["display_name_next_update"] =
+                OSD.FromDate(
+                    DateTime.ParseExact("1970-01-01 00:00:00 +0", "yyyy-MM-dd hh:mm:ss z",
+                                        DateTimeFormatInfo.InvariantInfo).ToUniversalTime());
+                agentMap["legacy_first_name"] = account.FirstName;
+                agentMap["legacy_last_name"] = account.LastName;
+                agentMap["id"] = account.PrincipalID;
+                agentMap["is_display_name_default"] = isDefaultDisplayName(account.FirstName, account.LastName, account.Name,
+                                                                           info == null ? account.Name : info.DisplayName);
 
-            agents.Add(agentMap);
+                agents.Add(agentMap);
+            }
+            else if(display_update_enabled == "true")
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("\nDisplayNames.ini disabled\n");
+                Console.ResetColor();
+                OSDMap agentMap = new OSDMap();
+                agentMap["username"] = account.Name;
+                agentMap["display_name"] = (info == null || info.DisplayName == "") ? account.Name : info.DisplayName;
+                agentMap["display_name_next_update"] = OSD.FromDate(DateTime.UtcNow.AddDays(display_update_days));
+                agentMap["legacy_first_name"] = account.FirstName;
+                agentMap["legacy_last_name"] = account.LastName;
+                agentMap["id"] = account.PrincipalID;
+                agentMap["is_display_name_default"] = isDefaultDisplayName(account.FirstName, account.LastName, account.Name,
+                                                                           info == null ? account.Name : info.DisplayName);
+
+                agents.Add(agentMap);
+
+            }
         }
 
         #region Event Queue
@@ -306,17 +345,6 @@ namespace WhiteCore.Services
         /// <param name="last"></param>
         /// <param name="account"></param>
         /// <returns></returns>
-        string display_update_enabled = "false";
-        double display_update_days = 0;
-        public void Initialize(IConfigSource config,, IRegistryCore registry)
-        {
-            IConfig displayconfig = config.Configs["DisplayNames"];
-            if (displayconfig == null)
-                return;
-            display_update_enabled = displayconfig.GetString("UpdateTimeEnabled", display_update_enabled);
-            display_update_days = displayconfig.GetDouble("UpdateTimeSet", display_update_days);
-            
-        }
 
         public OSD DisplayNameUpdate(string newDisplayName, string oldDisplayName, UUID iD, bool isDefault, string first,
                                      string last, string account)

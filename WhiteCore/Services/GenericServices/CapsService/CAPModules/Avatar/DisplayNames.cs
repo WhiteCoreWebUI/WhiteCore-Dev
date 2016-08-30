@@ -312,6 +312,7 @@ namespace WhiteCore.Services
             OSDMap nameReply = new OSDMap {{"message", OSD.FromString("DisplayNameUpdate")}};
 
             OSDMap body = new OSDMap();
+            ///Display Name time working ... fix date in viewer?
             OSDMap agentData = new OSDMap
                                    {
                                        {"display_name", OSD.FromString(newDisplayName)},

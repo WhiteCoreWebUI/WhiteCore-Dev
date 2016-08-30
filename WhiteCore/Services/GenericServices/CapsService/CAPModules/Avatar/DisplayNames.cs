@@ -306,6 +306,18 @@ namespace WhiteCore.Services
         /// <param name="last"></param>
         /// <param name="account"></param>
         /// <returns></returns>
+        string display_update_enabled = "false";
+        double display_update_days = 0;
+        public void Initialize(IConfigSource config,, IRegistryCore registry)
+        {
+            IConfig displayconfig = config.Configs["DisplayNames"];
+            if (displayconfig == null)
+                return;
+            display_update_enabled = displayconfig.GetString("UpdateTimeEnabled", display_update_enabled);
+            display_update_days = displayconfig.GetDouble("UpdateTimeSet", display_update_days);
+            
+        }
+
         public OSD DisplayNameUpdate(string newDisplayName, string oldDisplayName, UUID iD, bool isDefault, string first,
                                      string last, string account)
         {
@@ -313,12 +325,14 @@ namespace WhiteCore.Services
 
             OSDMap body = new OSDMap();
             ///Display Name time working ... fix date in viewer? but how
-            OSDMap agentData = new OSDMap
+            if (display_update_enabled == "true")
+            {
+                OSDMap agentData = new OSDMap
                                    {
                                        {"display_name", OSD.FromString(newDisplayName)},
                                        {
                                            "display_name_next_update", OSD.FromDate(
-                                              DateTime.UtcNow.AddDays(8))
+                                              DateTime.UtcNow.AddDays(display_update_days))
                                        },
                                        {"id", OSD.FromUUID(iD)},
                                        {"is_display_name_default", OSD.FromBoolean(isDefault)},
@@ -326,6 +340,7 @@ namespace WhiteCore.Services
                                        {"legacy_last_name", OSD.FromString(last)},
                                        {"username", OSD.FromString(account)}
                                    };
+        
             body.Add("agent", agentData);
             body.Add("agent_id", OSD.FromUUID(iD));
             body.Add("old_display_name", OSD.FromString(oldDisplayName));
@@ -333,6 +348,33 @@ namespace WhiteCore.Services
             nameReply.Add("body", body);
 
             return nameReply;
+        }
+            else
+            {
+                OSDMap agentData = new OSDMap
+                                   {
+                                       {"display_name", OSD.FromString(newDisplayName)},
+                                       {
+                                           "display_name_next_update", OSD.FromDate(
+                                                DateTime.ParseExact("1970-01-01 00:00:00 +0", "yyyy-MM-dd hh:mm:ss z",
+                                                                   DateTimeFormatInfo.InvariantInfo).ToUniversalTime())
+                                       },
+                                       {"id", OSD.FromUUID(iD)},
+                                       {"is_display_name_default", OSD.FromBoolean(isDefault)},
+                                       {"legacy_first_name", OSD.FromString(first)},
+                                       {"legacy_last_name", OSD.FromString(last)},
+                                       {"username", OSD.FromString(account)}
+                                   };
+
+                body.Add("agent", agentData);
+                body.Add("agent_id", OSD.FromUUID(iD));
+                body.Add("old_display_name", OSD.FromString(oldDisplayName));
+
+                nameReply.Add("body", body);
+
+                return nameReply;
+
+            }
         }
 
         /// <summary>

@@ -135,9 +135,12 @@ namespace WhiteCore.Services
                     //Set the name
                     info.DisplayName = newDisplayName;
                     m_profileConnector.UpdateUserProfile(info);
+                    OSDMap osdname = new OSDMap();
 
                     //One for us
                     DisplayNameUpdate(newDisplayName, oldDisplayName, m_service.ClientCaps.AccountInfo, m_service.AgentID);
+                    osdname["display_name_next_update"] = OSD.FromDate(DateTime.UtcNow.AddDays(8));
+                    
 
                     foreach (
                         IRegionClientCapsService avatar in
@@ -227,10 +230,7 @@ namespace WhiteCore.Services
             OSDMap agentMap = new OSDMap();
             agentMap["username"] = account.Name;
             agentMap["display_name"] = (info == null || info.DisplayName == "") ? account.Name : info.DisplayName;
-            agentMap["display_name_next_update"] =
-                OSD.FromDate(
-                    DateTime.ParseExact("1970-01-01 00:00:00 +0", "yyyy-MM-dd hh:mm:ss z",
-                                        DateTimeFormatInfo.InvariantInfo).ToUniversalTime());
+            agentMap["display_name_next_update"] = OSD.FromDate(DateTime.UtcNow.AddDays(8));
             agentMap["legacy_first_name"] = account.FirstName;
             agentMap["legacy_last_name"] = account.LastName;
             agentMap["id"] = account.PrincipalID;

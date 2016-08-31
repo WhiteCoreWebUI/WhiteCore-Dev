@@ -1,4 +1,13 @@
-# WhiteCore Sim
+# WhiteCore ThunderLife Edition
+
+WhiteCore ThunderLife Edition is a Fork of the WhiteCore-Sim project however it has some advanced functions not available at the original Source.
+
+* When you run "run configurator" you can select for a advanced setup which allows to configure Economy and Voice Modules.
+* DisplayNames can be set for a specific time period before a user can set a new display name again.
+* the PHP WebUI Module is now integrated in the Core
+
+
+## Original README.MD
 
 
 

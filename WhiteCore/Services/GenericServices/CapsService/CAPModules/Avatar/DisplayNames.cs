@@ -44,6 +44,7 @@ using WhiteCore.Framework.Servers.HttpServer.Implementation;
 using WhiteCore.Framework.Services;
 using WhiteCore.Framework.Services.ClassHelpers.Profile;
 using WhiteCore.Framework.Utilities;
+using WhiteCore.Framework.ConsoleFramework;
 
 namespace WhiteCore.Services
 {
@@ -56,9 +57,25 @@ namespace WhiteCore.Services
         IUserAccountService m_userService;
 
         #region ICapsServiceConnector Members
-
+        string display_update_enabled = "false";
+        double display_update_days = 0;
+/// <summary>
+/// Fix That Idiots bug not calling public void initialize
+/// </summary>
+/// <param name="service"></param>
         public void RegisterCaps(IRegionClientCapsService service)
         {
+
+
+            IConfig displayconfig =
+     service.ClientCaps.Registry.RequestModuleInterface<ISimulationBase>().ConfigSource.Configs[
+         "DisplayNames"];
+            if (displayconfig == null)
+                return;
+            display_update_enabled = displayconfig.GetString("UpdateTimeEnabled", display_update_enabled);
+            display_update_days = displayconfig.GetDouble("UpdateTimeSet", display_update_days);
+            MainConsole.Instance.Info("[DisplayNames] ini config: Enabled = " + display_update_enabled + " Can Update in = " + display_update_days + " Days");
+        
             IConfig displayNamesConfig =
                 service.ClientCaps.Registry.RequestModuleInterface<ISimulationBase>().ConfigSource.Configs[
                     "DisplayNamesModule"];
@@ -224,26 +241,12 @@ namespace WhiteCore.Services
 
             return OSDParser.SerializeLLSDXmlBytes(map);
         }
-        string display_update_enabled = "false";
-        double display_update_days = 0;
-        public void Initialize(IConfigSource config, IRegistryCore registry)
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("READING INI FOR DISPLAY NAMES");
-            Console.ResetColor();
-            IConfig displayconfig = config.Configs["DisplayNames"];
-            if (displayconfig == null)
-                return;
-            display_update_enabled = displayconfig.GetString("UpdateTimeEnabled", display_update_enabled);
-            display_update_days = displayconfig.GetDouble("UpdateTimeSet", display_update_days);
-
-        }
 
         void PackUserInfo(IUserProfileInfo info, UserAccount account, ref OSDArray agents)
         {
             if (display_update_enabled == "false")
             {
-                Console.Write("DisplayNames.ini enabled\n");
+                MainConsole.Instance.InfoFormat("[DisplayNames] DisplayNames Update Time Disabled by Configuration");
                 OSDMap agentMap = new OSDMap();
                 agentMap["username"] = account.Name;
                 agentMap["display_name"] = (info == null || info.DisplayName == "") ? account.Name : info.DisplayName;
@@ -261,9 +264,7 @@ namespace WhiteCore.Services
             }
             else if(display_update_enabled == "true")
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("\nDisplayNames.ini disabled\n");
-                Console.ResetColor();
+                MainConsole.Instance.InfoFormat("[DisplayNames] DisplayNames Update Time Enabled by Configuration");
                 OSDMap agentMap = new OSDMap();
                 agentMap["username"] = account.Name;
                 agentMap["display_name"] = (info == null || info.DisplayName == "") ? account.Name : info.DisplayName;
@@ -355,6 +356,7 @@ namespace WhiteCore.Services
             ///Display Name time working ... fix date in viewer? but how
             if (display_update_enabled == "true")
             {
+                MainConsole.Instance.InfoFormat("[DisplayNames] Display Names Time Enabled");
                 OSDMap agentData = new OSDMap
                                    {
                                        {"display_name", OSD.FromString(newDisplayName)},
@@ -379,6 +381,7 @@ namespace WhiteCore.Services
         }
             else
             {
+                MainConsole.Instance.InfoFormat("[DisplayNames] Display Names Time Disabled");
                 OSDMap agentData = new OSDMap
                                    {
                                        {"display_name", OSD.FromString(newDisplayName)},

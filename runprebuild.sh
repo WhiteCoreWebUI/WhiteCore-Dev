@@ -5,7 +5,7 @@
 # Rowan Deppeler <greythane@gmail.com>
 
 ARCH="x64"
-CONFIG="Debug"
+CONFIG="Release"
 BUILD=false
 VERSIONONLY=false
 
@@ -104,6 +104,6 @@ if ${BUILD:=true} ; then
   echo Thank you for choosing WhiteCore ThunderLife Edition
   echo Please report any errors to our Github Issue Tracker https://github.com/WhiteCoreWebUI/WhiteCore-Dev/issues
 else
-  echo "WhiteCore-Sim has been configured to compile with $ARCH $CONFIG options"
+  echo "WhiteCore ThunderLife Edition has been configured to compile with $ARCH $CONFIG options"
   echo "To manually build, enter 'xbuild WhiteCore.sln' at the command prompt"
 fi

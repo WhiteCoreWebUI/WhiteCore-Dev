@@ -47,7 +47,7 @@ namespace WhiteCore.Framework.Utilities
         #endregion
 
         public const string VERSION_NUMBER = "0.9.4";
-        public const Flavour VERSION_FLAVOUR = Flavour.Extended;
+        public const Flavour VERSION_FLAVOUR = Flavour.RC1;
         public const string VERSION_NAME = "WhiteCore ThunderLife Edition";
 
         public static string Version

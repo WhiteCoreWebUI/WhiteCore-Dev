@@ -68,7 +68,7 @@ namespace WhiteCore.Framework.Utilities
 
         static string GetGitVersionString()
         {
-            string versionString = "Unknown";
+            string versionString = "Github Sucks...";
 
             // Check if there's a custom .version file with the commit hash in it
             // Else return the standard versionString.

@@ -255,7 +255,7 @@ namespace WhiteCore.Simulation.Base
 
             MainConsole.Instance.Info("====================================================================");
             MainConsole.Instance.Info(
-				        string.Format("==================== Starting WhiteCore-Sim ({0}) ======================",
+				        string.Format("==================== Starting WhiteCore-Sim ThunderLife Extended Edition ({0}) ======================",
                               (IntPtr.Size == 4 ? "x86" : "x64")));
             MainConsole.Instance.Info("====================================================================");
             MainConsole.Instance.Info("[WhiteCore-Sim Startup]: Version : " + Version + "\n");

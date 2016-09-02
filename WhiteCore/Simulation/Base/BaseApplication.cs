@@ -382,7 +382,7 @@ namespace WhiteCore.Simulation.Base
                                 conf.Set("MinAmountPurchasable", minamountpurchasable);
                                 conf.Set("MaxAmountPurchasableOverTime", MaxAmountPurchasableoverTime);
                                 conf.Set("MaxAmountPurchasableEveryType", MaxAmountPurchasableEveryType);
-                                conf.Set("MaxAmountPurchasableEveryAmount", MaxAmountPurchasableEveryType);
+                                conf.Set("MaxAmountPurchasableEveryAmount", MaxAmountPurchasableEveryAmount);
                                 conf.Set("CanBuyCurrencyInworld", CanBuyCurrencyInworld);
                                 conf.Set("RealCurrencyConversionFactor", RealCurrencyConversionFactor);
                                 conf.Set("AdditionPercentage", AdditionPercentage);

@@ -70,7 +70,7 @@ namespace WhiteCore.Addon.WebUI
     {
         public IHttpServer m_server = null;
         public IHttpServer m_server2 = null;
-        string m_servernick = "hippogrid";
+        string m_servernick = "WhiteCore";
         protected IRegistryCore m_registry;
         BaseCurrencyConnector m_connector = Framework.Utilities.DataManager.RequestPlugin<IBaseCurrencyConnector>() as BaseCurrencyConnector;
         public string Name
